@@ -1,0 +1,26 @@
+<!-- invoices/templates/invoices/summary.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Summary</title>
+</head>
+<body>
+    <h1>Invoice Summary</h1>
+    <table border="1">
+        <tr>
+            <th>Revenue Source</th>
+            <th>Total Value</th>
+            <th>Total Advance</th>
+            <th>Total Expected Fee</th>
+        </tr>
+        {% for item in summary %}
+        <tr>
+            <td>{{ item.revenue_source }}</td>
+            <td>{{ item.total_value }}</td>
+            <td>{{ item.total_advance }}</td>
+            <td>{{ item.total_expected_fee }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
