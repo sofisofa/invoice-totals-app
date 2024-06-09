@@ -14,27 +14,39 @@ Just be sure to have docker installed and running and download the repo.
 ### Instructions
 Change to the local folder where you have cloned the repo and run the following instructions in terminal.
 
+#### The app
+
+Make sure to stop the tests before running the app
+1. To start the app:
+```bash
+make run_app
+```
+
+2. To stop the app:
+```bash
+make stop_app
+```
+
+3. To upload invoice files:
+```bash
+make upload_file file=/path/to/your/file.xlsx
+```
+
+4. To visualize the summary table go to: http://localhost:8000/api/summary/
+
+
+#### The tests
+Make sure to stop the app before running the tests
 1. To run the tests:
 ```bash
 make tests
 ```
 
-2. To start the app:
+1. To stop the app:
 ```bash
-make run_app
+make stop_tests
 ```
 
-3. To stop the app:
-```bash
-make stop_app
-```
-
-4. To upload invoice files:
-```bash
-make upload_file file=/path/to/your/file.xlsx
-```
-
-5. To visualize the summary table go to: http://localhost:8000/api/summary/
 
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

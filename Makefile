@@ -1,5 +1,5 @@
 run_app: 
-	docker compose -f './docker-compose-prod.yml' --env-file ./.env up -d --build
+	docker compose -f './docker-compose-prod.yml' --env-file ./.env up -d --build --remove-orphans
 
 stop_app:
 	docker compose -f './docker-compose-prod.yml' --env-file ./.env down
@@ -7,24 +7,22 @@ stop_app:
 upload_file:
 	curl -X POST -F "file=@$(file)" http://localhost:8000/api/upload/
 
-tests: _testUp _sleep2 _initTestDb _coverage _testDown
+tests: _testUp 
+
+stop_tests: _testDown
 
 _start_app:
 	ENV_FILE_PATH='/.env' python manage.py startapp invoices
 
 _testUp:
-	docker compose --env-file ./.env.test up -d --build
+	docker compose --env-file ./.env  build 
+	docker compose --env-file ./.env run test 
 
 _testDown:
-	docker compose --env-file ./.env.test down
+	docker compose --env-file ./.env down
 
 _initTestDb:
 	#TODO: crear un csv de test
 
-_coverage:
-	coverage run -m pytest
-	coverage report -m
-	coverage erase
-
-_sleep2:
-	sleep 2
+_sleep5:
+	sleep 5

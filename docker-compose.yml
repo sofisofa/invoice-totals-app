@@ -1,36 +1,49 @@
-version: '3'
-
 services:
-  web:
-    build: .
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
-    depends_on:
-      - redis
-      - db
-    environment:
-      - REDIS_HOST=redis
+  # web:
+  #   build: .
+  #   command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+  #   volumes:
+  #     - .:/code
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - redis
+  #     - db-test
+  #   environment:
+  #     - REDIS_HOST=redis
 
-  redis:
-    image: "redis:alpine"
+  # redis:
+  #   image: "redis:alpine"
 
-  db:
+  db-test:
     image: "postgres:13"
     container_name: 'test-db'
     environment:
-      POSTGRES_DB: $DB_NAME
-      POSTGRES_USER: $DB_USER
-      POSTGRES_PASSWORD: $DB_PASS
+      POSTGRES_DB: $TEST_DB_NAME
+      POSTGRES_USER: $TEST_DB_USER
+      POSTGRES_PASSWORD: $TEST_DB_PASS
     ports:
-      - '${DB_PORT}:5432'
+      - '${TEST_DB_PORT}:5432'
 
-  worker:
+  # worker:
+  #   build: .
+  #   command: ["celery", "-A", "project", "worker", "--loglevel=info"]
+  #   depends_on:
+  #     - redis
+  #   environment:
+  #     - REDIS_HOST=redis
+
+  test:
     build: .
-    command: ["celery", "-A", "project", "worker", "--loglevel=info"]
+    command: pytest --cov=invoices --cov-report=term-missing --cov-report=html
+    volumes:
+      - .:/code
     depends_on:
-      - redis
+      - db-test
     environment:
-      - REDIS_HOST=redis
+      - POSTGRES_DB=$TEST_DB_NAME
+      - POSTGRES_USER=$TEST_DB_USER
+      - POSTGRES_PASSWORD=$TEST_DB_PASS
+      - POSTGRES_HOST=db-test
+      - POSTGRES_PORT=5432
+      - DJANGO_SETTINGS_MODULE=project.settings_test
