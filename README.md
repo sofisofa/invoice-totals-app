@@ -9,7 +9,29 @@ This project is a web application that ingests invoice data from a spreadsheet a
 It then has a web service that adds up the totals on a per-revenue source basis and displays on a page the Value, Advance and Expected Fee.
 
 ### Installation
-Just be sure to have docker installed and running and download the repo.
+Just be sure to have docker installed and running and download the repo. Write an env file like the one below:
+
+```
+#-- REDIS --#
+REDIS_PORT=
+
+#-- POSTGRES --#
+DB_USER=
+DB_PASS=
+DB_PORT=
+DB_HOST=
+DB_NAME=
+
+#-- TEST POSTGRES --#
+TEST_DB_USER=
+TEST_DB_PASS=
+TEST_DB_HOST=
+TEST_DB_NAME=
+TEST_DB_PORT=
+
+#-- DJANGO SECRET KEY --#
+DJANGO_SECRET_KEY=''
+```
 
 ### Instructions
 Change to the local folder where you have cloned the repo and run the following instructions in terminal.
@@ -47,6 +69,10 @@ make tests
 make stop_tests
 ```
 
+### Next Steps:
 
+1. Write exception handling and test (e.g. what happens if the file uploaded is not a csv?)
+2. Make integration tests using the test-db service and initializing the database before running the tests
+3. Change html/Add Javascript: add a feedback form and a button that calls the upload endpoint and/or refreshes the page
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

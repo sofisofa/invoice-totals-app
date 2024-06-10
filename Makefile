@@ -22,7 +22,7 @@ _testDown:
 	docker compose --env-file ./.env down
 
 _initTestDb:
-	#TODO: crear un csv de test
+	# TODO: create a test csv
 
 _sleep5:
 	sleep 5
