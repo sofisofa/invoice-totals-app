@@ -1,20 +1,4 @@
 services:
-  # web:
-  #   build: .
-  #   command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-  #   volumes:
-  #     - .:/code
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - redis
-  #     - db-test
-  #   environment:
-  #     - REDIS_HOST=redis
-
-  # redis:
-  #   image: "redis:alpine"
-
   db-test:
     image: "postgres:13"
     container_name: 'test-db'
@@ -24,14 +8,6 @@ services:
       POSTGRES_PASSWORD: $TEST_DB_PASS
     ports:
       - '${TEST_DB_PORT}:5432'
-
-  # worker:
-  #   build: .
-  #   command: ["celery", "-A", "project", "worker", "--loglevel=info"]
-  #   depends_on:
-  #     - redis
-  #   environment:
-  #     - REDIS_HOST=redis
 
   test:
     build: .
