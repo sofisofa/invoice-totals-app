@@ -6,6 +6,7 @@ services:
       - .:/code
     ports:
       - "8000:8000"
+    restart: always
     depends_on:
       - redis
       - db
@@ -32,6 +33,7 @@ services:
     command: ["celery", "-A", "project", "worker", "--loglevel=info"]
     depends_on:
       - redis
+    restart: always
     environment:
       - REDIS_HOST=redis
       - DB_NAME=$DB_NAME

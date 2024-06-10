@@ -71,8 +71,9 @@ make stop_tests
 
 ### Next Steps:
 
-1. Write exception handling and test (e.g. what happens if the file uploaded is not a csv?)
+1. Write exception handling, cases for request status 400 and test (e.g. what happens if the file uploaded is not a csv?, what if the format is not correct?)
 2. Make integration tests using the test-db service and initializing the database before running the tests
-3. Change html/Add Javascript: add a feedback form and a button that calls the upload endpoint and/or refreshes the page
+3. Add the possibility to ask for the summary for a specific customer, passed as query parameter to the UploadInvoiceView
+4. Change html/Add Javascript: add a feedback form and a button that calls the upload endpoint and/or refreshes the page
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

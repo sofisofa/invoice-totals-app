@@ -3,7 +3,7 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-sleep 2
+sleep 5
 
 # Run migrations
 python manage.py migrate
